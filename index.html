@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3.0.2"></script>
+    <style>
+        body{
+            background: #eee;
+            max-width: 960px;
+            margin: 20px;
+        }
+        .box{
+            padding: 100px 0;
+            width: 400px;
+            text-align: center;
+            background: #ddd;
+            margin: 20px;
+            display: inline-block;
+        }
+        li.fav{
+            background: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>Vue</h1>
+
+    <div id="app">
+        <div v-if="showBox">
+            <p>{{ title }} - {{ author }} -  {{ age }}</p>
+        </div>
+
+        <button v-on:click="incrementAge">increase age</button>
+        <button @click="decrementAge">decrease age</button>
+        <div @click="title = 'something else'">change title</div>
+        <div @click="changeTitle('new title')">change title</div>
+        <button @click="toggleShowBox">
+            <span v-if="showBox">hide box</span>
+            <span v-else="!showBox">show box</span>
+        </button>
+
+        <div v-show="showBox">currently showing box</div>
+
+        <hr>
+        <!--if there is an event which must be the first param-->
+        <div class="box" @mouseover="mouseEvent($event, 5)">mouseover</div>
+        <div class="box" @mouseleave="mouseEvent">mosueleave</div>
+        <div class="box" @dblclick="mouseEvent">double click</div>
+        <div class="box" @mousemove="mouseMove">position: {{ x }} {{ y }}</div>
+
+        <hr>
+
+        <ul>
+            <li v-for="item in books" v-bind:class="{ fav: item.isFav}" v-on:click="toggleIsFav(item)">
+                <img v-bind:src="item.img" v-bind:alt="item.title" height="50">
+                <h3>{{ item.title }}</h3>
+                <p>{{ item.author }}</p>
+            </li>
+        </ul>
+
+        <hr>
+
+        <a v-bind:href="url">google.com</a>
+
+        <hr>
+
+        <ul>
+            <li v-for="item in filteredBooks" v-bind:class="{ fav: item.isFav}" v-on:click="toggleIsFav(item)">
+                <img v-bind:src="item.img" v-bind:alt="item.title" height="50">
+                <h3>{{ item.title }}</h3>
+                <p>{{ item.author }}</p>
+            </li>
+        </ul>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
